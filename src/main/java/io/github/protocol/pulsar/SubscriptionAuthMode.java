@@ -16,35 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package io.github.protocol.pulsar;
 
-public class PulsarAdminImpl implements PulsarAdmin {
+public enum SubscriptionAuthMode {
 
-    private final Brokers brokers;
+    /** Every subscription name can be used by every role. */
+    None,
 
-    private final Tenants tenants;
+    /** Subscription name with auth role prefix can be used by the role. */
+    Prefix
 
-    private final Namespaces namespaces;
-
-    PulsarAdminImpl(Configuration conf) {
-        InnerHttpClient innerHttpClient = new InnerHttpClient(conf);
-        this.brokers = new BrokersImpl(innerHttpClient);
-        this.tenants = new TenantsImpl(innerHttpClient);
-        this.namespaces = new NamespacesImpl(innerHttpClient);
-    }
-
-    @Override
-    public Brokers brokers() {
-        return brokers;
-    }
-
-    @Override
-    public Tenants tenants() {
-        return tenants;
-    }
-
-    @Override
-    public Namespaces namespaces() {
-        return namespaces;
-    }
 }

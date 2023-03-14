@@ -24,4 +24,8 @@ public interface PulsarAdmin {
     }
 
     Brokers brokers();
+
+    Tenants tenants();
+
+    Namespaces namespaces();
 }

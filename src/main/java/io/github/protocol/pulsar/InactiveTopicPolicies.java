@@ -16,35 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package io.github.protocol.pulsar;
 
-public class PulsarAdminImpl implements PulsarAdmin {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    private final Brokers brokers;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class InactiveTopicPolicies {
 
-    private final Tenants tenants;
+    private InactiveTopicDeleteMode inactiveTopicDeleteMode;
 
-    private final Namespaces namespaces;
+    private Integer maxInactiveDurationSeconds;
 
-    PulsarAdminImpl(Configuration conf) {
-        InnerHttpClient innerHttpClient = new InnerHttpClient(conf);
-        this.brokers = new BrokersImpl(innerHttpClient);
-        this.tenants = new TenantsImpl(innerHttpClient);
-        this.namespaces = new NamespacesImpl(innerHttpClient);
-    }
+    private Boolean deleteWhileInactive;
 
-    @Override
-    public Brokers brokers() {
-        return brokers;
-    }
-
-    @Override
-    public Tenants tenants() {
-        return tenants;
-    }
-
-    @Override
-    public Namespaces namespaces() {
-        return namespaces;
-    }
 }

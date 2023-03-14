@@ -19,7 +19,16 @@
 package io.github.protocol.pulsar;
 
 public class UrlConst {
-    public static final String BROKERS = "/admin/v2/brokers";
+
+    public static final String BASE_URL_V2 = "/admin/v2";
+
+    public static final String BROKERS = BASE_URL_V2 + "/brokers";
+
+    public static final String TENANTS = BASE_URL_V2 + "/tenants";
+
+    public static final String NAMESPACES = BASE_URL_V2 + "/namespaces";
+
+    public static final String TOPICS = BASE_URL_V2 + "/topics";
 
     public static final String HEALTHCHECK = BROKERS + "/health";
 }

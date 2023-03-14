@@ -16,35 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package io.github.protocol.pulsar;
 
-public class PulsarAdminImpl implements PulsarAdmin {
+public enum AuthAction {
 
-    private final Brokers brokers;
+    produce,
 
-    private final Tenants tenants;
+    consume,
 
-    private final Namespaces namespaces;
+    functions,
 
-    PulsarAdminImpl(Configuration conf) {
-        InnerHttpClient innerHttpClient = new InnerHttpClient(conf);
-        this.brokers = new BrokersImpl(innerHttpClient);
-        this.tenants = new TenantsImpl(innerHttpClient);
-        this.namespaces = new NamespacesImpl(innerHttpClient);
-    }
+    sources,
 
-    @Override
-    public Brokers brokers() {
-        return brokers;
-    }
+    sinks,
 
-    @Override
-    public Tenants tenants() {
-        return tenants;
-    }
+    packages
 
-    @Override
-    public Namespaces namespaces() {
-        return namespaces;
-    }
 }

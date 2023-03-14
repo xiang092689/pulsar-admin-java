@@ -16,35 +16,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package io.github.protocol.pulsar;
 
-public class PulsarAdminImpl implements PulsarAdmin {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-    private final Brokers brokers;
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class DispatchRateImpl {
 
-    private final Tenants tenants;
+    private Integer dispatchThrottlingRateInMsg;
 
-    private final Namespaces namespaces;
+    private Long dispatchThrottlingRateInByte;
 
-    PulsarAdminImpl(Configuration conf) {
-        InnerHttpClient innerHttpClient = new InnerHttpClient(conf);
-        this.brokers = new BrokersImpl(innerHttpClient);
-        this.tenants = new TenantsImpl(innerHttpClient);
-        this.namespaces = new NamespacesImpl(innerHttpClient);
-    }
+    private Boolean relativeToPublishRate;
 
-    @Override
-    public Brokers brokers() {
-        return brokers;
-    }
+    private Integer ratePeriodInSecond;
 
-    @Override
-    public Tenants tenants() {
-        return tenants;
-    }
-
-    @Override
-    public Namespaces namespaces() {
-        return namespaces;
-    }
 }

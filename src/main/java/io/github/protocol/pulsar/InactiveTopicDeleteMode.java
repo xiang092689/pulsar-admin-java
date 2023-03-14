@@ -16,35 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package io.github.protocol.pulsar;
 
-public class PulsarAdminImpl implements PulsarAdmin {
+public enum InactiveTopicDeleteMode {
 
-    private final Brokers brokers;
+    /**
+     * The topic can be deleted when no subscriptions and no active producers.
+     */
+    delete_when_no_subscriptions,
 
-    private final Tenants tenants;
-
-    private final Namespaces namespaces;
-
-    PulsarAdminImpl(Configuration conf) {
-        InnerHttpClient innerHttpClient = new InnerHttpClient(conf);
-        this.brokers = new BrokersImpl(innerHttpClient);
-        this.tenants = new TenantsImpl(innerHttpClient);
-        this.namespaces = new NamespacesImpl(innerHttpClient);
-    }
-
-    @Override
-    public Brokers brokers() {
-        return brokers;
-    }
-
-    @Override
-    public Tenants tenants() {
-        return tenants;
-    }
-
-    @Override
-    public Namespaces namespaces() {
-        return namespaces;
-    }
+    /**
+     * The topic can be deleted when all subscriptions catchup and no active producers/consumers.
+     */
+    delete_when_subscriptions_caught_up
 }

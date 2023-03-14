@@ -16,35 +16,23 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package io.github.protocol.pulsar;
 
-public class PulsarAdminImpl implements PulsarAdmin {
+import java.util.List;
 
-    private final Brokers brokers;
+public interface Namespaces {
 
-    private final Tenants tenants;
+    List<String> getTenantNamespaces(String tenant) throws PulsarAdminException;
 
-    private final Namespaces namespaces;
+    List<String> getTopics(String tenant, String namespace, Mode mode, boolean includeSystemTopic)
+            throws PulsarAdminException;
 
-    PulsarAdminImpl(Configuration conf) {
-        InnerHttpClient innerHttpClient = new InnerHttpClient(conf);
-        this.brokers = new BrokersImpl(innerHttpClient);
-        this.tenants = new TenantsImpl(innerHttpClient);
-        this.namespaces = new NamespacesImpl(innerHttpClient);
-    }
+    Policies getPolicies(String tenant, String namespace) throws PulsarAdminException;
 
-    @Override
-    public Brokers brokers() {
-        return brokers;
-    }
+    void createNamespace(String tenant, String namespace, Policies policies) throws PulsarAdminException;
 
-    @Override
-    public Tenants tenants() {
-        return tenants;
-    }
+    void deleteNamespace(String tenant, String namespace, boolean force, boolean authoritative)
+            throws PulsarAdminException;
 
-    @Override
-    public Namespaces namespaces() {
-        return namespaces;
-    }
 }

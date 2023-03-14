@@ -16,35 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package io.github.protocol.pulsar;
 
-public class PulsarAdminImpl implements PulsarAdmin {
+public enum OffloadedReadPriority {
 
-    private final Brokers brokers;
+    /**
+     * For offloaded messages, readers will try to read from bookkeeper at first,
+     * if messages not exist at bookkeeper then read from offloaded storage.
+     */
+    BOOKKEEPER_FIRST,
 
-    private final Tenants tenants;
+    /**
+     * For offloaded messages, readers will try to read from offloaded storage first,
+     * even they are still exist in bookkeeper.
+     */
+    TIERED_STORAGE_FIRST
 
-    private final Namespaces namespaces;
-
-    PulsarAdminImpl(Configuration conf) {
-        InnerHttpClient innerHttpClient = new InnerHttpClient(conf);
-        this.brokers = new BrokersImpl(innerHttpClient);
-        this.tenants = new TenantsImpl(innerHttpClient);
-        this.namespaces = new NamespacesImpl(innerHttpClient);
-    }
-
-    @Override
-    public Brokers brokers() {
-        return brokers;
-    }
-
-    @Override
-    public Tenants tenants() {
-        return tenants;
-    }
-
-    @Override
-    public Namespaces namespaces() {
-        return namespaces;
-    }
 }

@@ -18,7 +18,7 @@
  */
 package io.github.protocol.pulsar;
 
-import java.net.http.HttpResponse;
+import java.io.IOException;
 
 public class BrokersImpl implements Brokers {
     private final InnerHttpClient innerHttpClient;
@@ -34,15 +34,8 @@ public class BrokersImpl implements Brokers {
             url += "?topicVersion=" + topicVersion;
         }
         try {
-            HttpResponse<String> httpResponse = innerHttpClient.get(url);
-            if (httpResponse.statusCode() != 200) {
-                throw new PulsarAdminException("healthcheck failed, status code: " + httpResponse.statusCode(),
-                        httpResponse.statusCode());
-            }
-            if (!httpResponse.body().equals("ok")) {
-                throw new PulsarAdminException("healthcheck failed, body: " + httpResponse.body());
-            }
-        } catch (Exception e) {
+            InnerHttpResponseHandler.handleHttpResponse(innerHttpClient.get(url), "healthcheck failed");
+        } catch (IOException | InterruptedException e) {
             throw new PulsarAdminException(e);
         }
     }
