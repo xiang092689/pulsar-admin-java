@@ -38,4 +38,8 @@ public class RandomUtil {
         return random.nextLong();
     }
 
+    public static boolean randomBoolean(){
+        return random.nextBoolean();
+    }
+
 }

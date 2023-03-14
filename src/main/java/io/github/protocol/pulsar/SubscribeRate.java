@@ -19,17 +19,21 @@
 
 package io.github.protocol.pulsar;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class SubscribeRate {
 
-    private int subscribeThrottlingRatePerConsumer;
+    private Integer subscribeThrottlingRatePerConsumer;
 
-    private int ratePeriodInSecond;
+    private Integer ratePeriodInSecond;
 
 }
