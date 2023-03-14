@@ -24,13 +24,10 @@ public class PulsarAdminImpl implements PulsarAdmin {
 
     private final Tenants tenants;
 
-    private final Namespaces namespaces;
-
     PulsarAdminImpl(Configuration conf) {
         InnerHttpClient innerHttpClient = new InnerHttpClient(conf);
         this.brokers = new BrokersImpl(innerHttpClient);
         this.tenants = new TenantsImpl(innerHttpClient);
-        this.namespaces = new NamespacesImpl(innerHttpClient);
     }
 
     @Override
@@ -43,8 +40,4 @@ public class PulsarAdminImpl implements PulsarAdmin {
         return tenants;
     }
 
-    @Override
-    public Namespaces namespaces() {
-        return namespaces;
-    }
 }

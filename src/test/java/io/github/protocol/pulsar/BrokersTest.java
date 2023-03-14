@@ -18,9 +18,23 @@
  */
 package io.github.protocol.pulsar;
 
+import io.github.embedded.pulsar.core.EmbeddedPulsarServer;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class BrokersTest extends PulsarTest{
+public class BrokersTest {
+    private static final EmbeddedPulsarServer SERVER = new EmbeddedPulsarServer();
+
+    @BeforeAll
+    public static void setup() throws Exception {
+        SERVER.start();
+    }
+
+    @AfterAll
+    public static void teardown() throws Exception {
+        SERVER.close();
+    }
 
     @Test
     public void testHealthCheckV1() throws PulsarAdminException {
